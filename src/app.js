@@ -22,11 +22,18 @@ app.post("/repositories", (request, response) => {
 });
 
 app.put("/repositories/:id", (request, response) => {
-	// TODO
+	const { id } = request.params;
+	const { title, url, techs } = request.body;
+	const repo = repositories.find(repo => repo.id === id);
+	if(repo === undefined){
+		return response.status(400).json('Repository not found!')
+	}
+	repo.title = title;	repo.url = url;	repo.techs = techs;
+	return response.json(repo);
 });
 
 app.delete("/repositories/:id", (request, response) => {
-	// TODO
+
 });
 
 app.post("/repositories/:id/like", (request, response) => {
